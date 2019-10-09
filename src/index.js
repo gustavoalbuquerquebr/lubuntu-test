@@ -10,17 +10,23 @@ const App = () => {
 
   React.useEffect(() => {
     (async () => {
-      const res = await fetch("/.netlify/functions/hello-world/hello-world.js");
+      // const res = await fetch("/.netlify/functions/hello-world/hello-world.js");
+      const res = await fetch("/.netlify/functions/hello-world/hello-world.js", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify({ name: "Gus" })
+      })
       const json = await res.json();
-      console.log(json);
       setTitle(json.message);
     })()
   });
 
   return (
-    <h1>
-      { title ? title : "Loading..."}
-    </h1>
+    <>
+      <h1>{title ? title : "Loading..."}</h1>
+    </>
   );
 };
 
